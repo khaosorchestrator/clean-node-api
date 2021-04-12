@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/return-await */
 import { SignUpController } from './signup'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 import { EmailValidator, AddAccount, AddAccountModel, AccountModel } from './signup-protocols'
@@ -183,7 +184,7 @@ describe('SignUp Controller', () => {
   test('Should return 500 if AddCount throws', async () => {
     const { sut, addAccountStub } = makeSut()
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-      throw new Promise((_resolve, reject) => reject(new Error()))
+      return new Promise((resolve, reject) => reject(new Error()))
     })
 
     const httpRequest = {
