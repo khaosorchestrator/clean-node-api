@@ -1,10 +1,6 @@
-/* eslint-disable promise/param-names */
-/* eslint-disable @typescript-eslint/no-throw-literal */
 import { SignUpController } from './signup'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
 import { EmailValidator, AddAccount, AddAccountModel, AccountModel } from './signup-protocols'
-import { resolve } from 'node:path'
-import { rejects } from 'node:assert'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -24,8 +20,7 @@ const makeAddAccount = (): AddAccount => {
         email: 'valid_email@mail.com',
         password: 'valid_password'
       }
-      // eslint-disable-next-line @typescript-eslint/return-await
-      return new Promise(resolve => resolve(fakeAccount))
+      return await new Promise(resolve => resolve(fakeAccount))
     }
   }
   return new AddAccountStub()
