@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/return-await */
 import { SignUpController } from './signup'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
-import { EmailValidator, AddAccount, AddAccountModel, AccountModel } from './signup-protocols'
+import { EmailValidator, AccountModel } from './signup-protocols'
+import { AddAccount, AddAccountModel } from '../../../domain/usecases/add-account'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -21,7 +21,7 @@ const makeAddAccount = (): AddAccount => {
         email: 'valid_email@mail.com',
         password: 'valid_password'
       }
-      return await new Promise(resolve => resolve(fakeAccount))
+      return new Promise(resolve => resolve(fakeAccount))
     }
   }
   return new AddAccountStub()
